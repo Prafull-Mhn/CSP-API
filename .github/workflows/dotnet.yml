@@ -16,13 +16,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 6.0.x
+
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore CSPApplication/CSPApplication.sln
+
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build CSPApplication/CSPApplication.sln --no-restore --configuration Release
+
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test CSPApplication/CSPApplication.sln --no-build --verbosity normal
