@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace CSP.Domain.Entities
 {
-    public class UserResponse
+    public class Tenant
     {
-        int UserId { get; set; }
+        public int TenantId { get; set; }
+        public string TenantName { get; set; }
+        public string TenantType { get; set; }
     }
 }

@@ -26,6 +26,19 @@ namespace CSP.Infrastructure.Persistence
             return await _connection.QueryFirstOrDefaultAsync<User>(query, new { Id = id });
         }
 
+        public async Task<bool> GetUserStatus(string useremailId, string password)
+        {
+            if (useremailId == "naveen@paisapay.com")
+                if (password == "1234")
+                    return true;
+                else
+                    return false;
+            else
+                return false;
+            //var query = "SELECT * FROM UserPersonalInfo WHERE UserId = @Id";
+            //return await _connection.QueryFirstOrDefaultAsync<User>(query, new { Id = id });
+        }
+
         public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
             var query = "SELECT * FROM Users";
