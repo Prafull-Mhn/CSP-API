@@ -14,5 +14,7 @@ namespace CSP.Application.Common.Interfaces
         Task<int> CreateUserAsync(User user);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(int id);
+
+        Task<string> GetUserStatus(string useremailId, string password);
     }
 }

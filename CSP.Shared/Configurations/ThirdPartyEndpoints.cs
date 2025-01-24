@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSP.Domain.Entities
+namespace CSP.Shared.Configurations
 {
-    public class UserResponse
+    public class ThirdPartyEndpoints
     {
-        int UserId { get; set; }
+        public string HLRCheck { get; set; }
     }
 }

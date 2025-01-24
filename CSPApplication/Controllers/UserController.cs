@@ -25,7 +25,15 @@ namespace CSP.API.Controllers
                 return Ok(result);
             }
 
-            [HttpPost]
+        [HttpGet("{useremailId}, {password}")]
+        public async Task<IActionResult> GetUserStatus(string useremailId, string password)
+        {
+            var result = await _mediator.Send(new GetUserStatusQuery(useremailId,password));
+            return Ok(result);
+        }
+
+
+        [HttpPost]
             public async Task<IActionResult> CreateUser([FromBody] CreateUserCommand command)
             {
                 var result = await _mediator.Send(command);
