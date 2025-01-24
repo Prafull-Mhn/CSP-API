@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSP.Application.Users.DTOs
+namespace CSP.Shared.Configurations
 {
-    public class UserStatus
+    public  class Token
     {
-        public string Status { get; set; }
     }
 }

@@ -1,16 +1,9 @@
 ﻿using CSP.Application.Common.Interfaces;
 using CSP.Application.Services.Handlers;
 using CSP.Domain.Entities;
-using Microsoft.Extensions.Configuration;
 //using Newtonsoft.Json;
-using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CSP.Infrastructure.Persistence
 {
@@ -27,7 +20,7 @@ namespace CSP.Infrastructure.Persistence
             public async Task<HLRList> PostHLRCheckAsync(Int64 number, string type, CancellationToken cancellationToken)
             {
 
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://sit.paysprint.in//service-api/api/v1/service/recharge/hlrapi/hlrcheck");
+            var request = new HttpRequestMessage(HttpMethod.Post, "https://sit.paysprint.in/service-api/api/v1/service/recharge/hlrapi/hlrcheck");
 
            // var client = new RestClient(options);
            // var request = new RestRequest("");
@@ -53,8 +46,8 @@ namespace CSP.Infrastructure.Persistence
             //    "application/json"
             //);
 
-           // request.Content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
-           // request.Content=
+            request.Content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+
             
             var response = await _httpClient.SendAsync(request, cancellationToken);
 
@@ -69,7 +62,7 @@ namespace CSP.Infrastructure.Persistence
             );
 
 
-            request.AddJsonBody("\"{\\\"number\\\":\\\"" + number + ",\\\"type\\\":\\\"" + type + "\\\"}\"", false);
+        //    request.AddJsonBody("\"{\\\"number\\\":\\\"" + number + ",\\\"type\\\":\\\"" + type + "\\\"}\"", false);
             //var response = await client.PostAsync(request);
 
             ////  var options = new RestClientOptions("https://sit.paysprint.in//service-api/api/v1/service/recharge/hlrapi/hlrcheck");

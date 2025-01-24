@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSP.Application.Users.DTOs
+namespace CSP.Shared.Configurations
 {
-    public class UserStatus
+    public class StoredProceduresConfig
     {
-        public string Status { get; set; }
+        public string InsertAPILog { get; set; }
     }
 }

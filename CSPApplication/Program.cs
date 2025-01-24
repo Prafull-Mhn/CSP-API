@@ -9,6 +9,11 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using CSP.Application.Users.Queries;
 using CSP.Application.Services.Command;
+using CSP.Application.Interfaces;
+using CSP.Infrastructure.Repositories;
+using CSP.Application.Handlers;
+using CSP.Shared.Configurations;
+using CSP.Application.Handlers.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,17 +40,30 @@ builder.Services.AddTransient<IDbConnection>(_ =>
     new SqlConnection(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add repositories and MediatR handlers
+builder.Services.AddScoped<IDatabaseConnection, DatabaseConnection>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddHttpClient<IServiceRepository, ServiceRepository>();
+builder.Services.AddScoped<IUtilitiesRepository, UtilitiesRepository>();
+//builder.Services.AddHttpClient<IUtilitiesRepository, UtilitiesRepository>();
 
 //builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetUserByIdQuery).Assembly));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetUserStatusQuery).Assembly));
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(HLRCheckCommand).Assembly));
+//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(HLRCheckCommand).Assembly));
+//builder.Services.AddMediatR(typeof(HLRCheckHandler).Assembly);
+//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(HLRCheckHandler).Assembly));
+
+// Add application dependencies
+//builder.Services.AddScoped<IUtilitiesRepository, UtilitiesRepository>();
 
 
+builder.Services.Configure<ThirdPartyEndpoints>(builder.Configuration.GetSection("ThirdPartyEndpoints"));
+builder.Services.Configure<StoredProceduresConfig>(builder.Configuration.GetSection("StoredProcedures"));
+
+//builder.Services.AddSingleton<IDatabaseConnection, DatabaseConnection>();
+//builder.Services.AddScoped<IHLRCheckHandler, HLRCheckHandler>();
 // Configure CORS if needed
 builder.Services.AddCors(options =>
 {

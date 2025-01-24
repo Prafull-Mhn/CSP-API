@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSP.Application.Users.DTOs
+namespace CSP.Domain.Entities
 {
-    public class UserStatus
+    internal class ThirdPartyLog
     {
-        public string Status { get; set; }
     }
 }
